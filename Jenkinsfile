@@ -6,6 +6,11 @@ pipeline {
                 git 'https://github.com/tushardubey/react-notes-app.git'
             }
         }
-    
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t Notes_App:latest .'
+            }
+        }
+
     }
 }
