@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t Notes_App:latest .'
+                sh 'docker build -t notes_app:latest .'
             }
         }
 
