@@ -2,20 +2,23 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_CREDS = credentials('dockerhub-creds-id')
+    IMAGE_NAME = "tushardubey/notes_app:latest"
     }
+    
     stages {
         stage('Checkout') {
             steps {
                 git 'https://github.com/tushardubey/react-notes-app.git'
             }
         }
+
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t notes_app:latest .'
-            }
-        }
-        
+                script {
+                    docker.build("${IMAGE_NAME}")
+                    }
+                    }
+                    }
         stage('Push to Docker Hub') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-creds-id', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
